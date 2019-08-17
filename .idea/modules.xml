@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/EcolosSyliusNutritionalInformationPlugin.iml" filepath="$PROJECT_DIR$/.idea/EcolosSyliusNutritionalInformationPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EcolosSyliusNutrinfoPlugin.iml" filepath="$PROJECT_DIR$/.idea/EcolosSyliusNutrinfoPlugin.iml" />
     </modules>
   </component>
 </project>

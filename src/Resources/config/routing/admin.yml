@@ -1,0 +1,16 @@
+ecolos_sylius_nutrinfo_plugin_admin_nutrinfo_active:
+  resource: |
+    alias: ecolos_sylius_nutrinfo_plugin.nutrinfo_active
+    grid: ecolos_sylius_nutrinfo_plugin_admin_nutrinfo_active
+    permission: true
+    redirect: update
+    section: admin
+    templates: SyliusAdminBundle:Crud
+    vars:
+        all:
+          templates:
+            subheader: "Aktive Inhaltsstoffe bearbeiten"
+            form: "@EcolosSyliusNutrinfoPlugin/_form.html.twig"
+        index:
+            icon: 'file image outline'
+  type: sylius.resource

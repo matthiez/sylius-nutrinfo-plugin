@@ -1,0 +1,3 @@
+ecolos_sylius_nutrinfo_plugin_admin:
+  resource: "@EcolosSyliusNutrinfoPlugin/Resources/config/routing/admin.yml"
+  prefix: /admin

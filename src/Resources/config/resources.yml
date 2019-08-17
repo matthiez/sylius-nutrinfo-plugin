@@ -1,0 +1,11 @@
+sylius_resource:
+  resources:
+    ecolos_sylius_nutrinfo_plugin.nutrinfo_active:
+      driver: doctrine/orm
+      classes:
+        model: Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoActive
+        form: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoActiveType
+      translation:
+        classes:
+          model: Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoActiveTranslation
+          form: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoActiveTranslationType

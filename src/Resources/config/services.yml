@@ -1,10 +1,33 @@
 services:
-  ecolos_sylius_nutritional_information_plugin.form.type.nutritional_information:
-    class: Ecolos\SyliusNutritionalInformation\Form\Type\NutritionalInformationType
-    tags:
-      - { name: form.type}
-
-  ecolos_sylius_nutritional_information_plugin.form.extension.type.product_variant:
-    class: Ecolos\SyliusNutritionalInformationPlugin\Extension\ProductVariantTypeExtension
+  ecolos_sylius_nutrinfo_plugin.form.extension.type.product_variant:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Extension\ProductVariantTypeExtension
     tags:
       - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType }
+
+  ecolos_sylius_nutrinfo_plugin.listener.admin.menu_builder:
+    class: Ecolos\SyliusNutrinfoPlugin\Menu\AdminMenuListener
+    tags:
+      - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+  ecolos_sylius_nutrinfo_plugin.form.type.nutrinfo_active_translation:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoActiveTranslationType
+    arguments:
+      - '%ecolos_sylius_nutrinfo_plugin.model.nutrinfo_active_translation.class%'
+      - ["sylius"]
+    tags:
+      - { name: form.type }
+
+  ecolos_sylius_nutrinfo_plugin.form.type.nutrinfo_active:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoActiveType
+    arguments:
+      - '%ecolos_sylius_nutrinfo_plugin.model.nutrinfo_active.class%'
+      - ["sylius"]
+    tags:
+      - { name: form.type }
+
+  ecolos_sylius_nutrinfo_plugin.form.type.nutrinfo:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoType
+    arguments:
+      - '@ecolos_sylius_nutrinfo_plugin.repository.nutrinfo_active'
+    tags:
+      - { name: form.type }

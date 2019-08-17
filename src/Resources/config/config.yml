@@ -1,0 +1,3 @@
+imports:
+  - { resource: "@EcolosSyliusNutrinfoPlugin/Resources/config/resources.yml" }
+  - { resource: "@EcolosSyliusNutrinfoPlugin/Resources/config/services.yml" }
