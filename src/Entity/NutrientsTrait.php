@@ -21,7 +21,7 @@ trait NutrientsTrait
     protected $fats;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $fiber;
@@ -81,7 +81,7 @@ trait NutrientsTrait
         return $this->fiber;
     }
 
-    public function setFiber(float $fiber): void
+    public function setFiber(?float $fiber): void
     {
         $this->fiber = $fiber;
     }

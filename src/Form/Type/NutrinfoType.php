@@ -54,6 +54,7 @@ class NutrinfoType extends AbstractType
                 "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.salt"],
                 "translation_domain" => "messages"])
             ->add('fiber', NumberType::class, [
+                "required" => false,
                 'label' => "ecolos_sylius_nutrinfo_plugin.ui.fiber",
                 "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.fiber"],
                 "translation_domain" => "messages"])
