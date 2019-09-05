@@ -31,3 +31,9 @@ services:
       - '@ecolos_sylius_nutrinfo_plugin.repository.nutrinfo_active'
     tags:
       - { name: form.type }
+
+  ecolos_sylius_nutrinfo_plugin.twig.extension.nutrinfo:
+    class: Ecolos\SyliusNutrinfoPlugin\Twig\NutrinfoExtension
+    arguments:
+      - "expr:service('sylius.context.locale').getLocaleCode()"
+    tags: [twig.extension]
