@@ -1,29 +1,32 @@
 <script>
-    const $container = document.getElementById('sylius_product_variant_nutrinfo_active_ingredients');
+    ['sylius_product_variant_nutrinfo_active_ingredients', 'sylius_product_nutrinfo_active_ingredients']
+        .forEach($container => {
+            $container = document.getElementById($container);
 
-    const mutationCallback = (mutations) => {
-        for (const mutation of
-            mutations) {
-            const id = parseInt(mutation.addedNodes[1].childNodes[0].id.match(/\d+/g)[0]);
+            const mutationCallback = (mutations) => {
+                for (const mutation of
+                    mutations) {
+                    const id = parseInt(mutation.addedNodes[1].childNodes[0].id.match(/\d+/g)[0]);
 
-            if (isNaN(id)) {
-                continue;
-            }
+                    if (isNaN(id)) {
+                        continue;
+                    }
 
-            const selectorBase = `#${$container.id}_${id}_`;
-            const $label = $container.querySelector(`${selectorBase}value`).labels[0];
-            const $unit = $container.querySelector(`${selectorBase}unit`);
+                    const selectorBase = `#${$container.id}_${id}_`;
+                    const $label = $container.querySelector(`${selectorBase}value`).labels[0];
+                    const $unit = $container.querySelector(`${selectorBase}unit`);
 
-            $label.textContent = $unit.value;
+                    $label.textContent = $unit.value;
 
-            const onChangeUnit = () => {
-                $label.textContent = $unit.value;
+                    const onChangeUnit = () => {
+                        $label.textContent = $unit.value;
+                    };
+
+                    $unit.addEventListener('change', onChangeUnit, {passive: true});
+                }
             };
 
-            $unit.addEventListener('change', onChangeUnit, {passive: true});
-        }
-    };
-
-    new MutationObserver(mutationCallback)
-        .observe($container.firstElementChild, {childList: true});
+            $container && $container.firstElementChild && new MutationObserver(mutationCallback)
+                .observe($container.firstElementChild, {childList: true});
+        });
 </script>

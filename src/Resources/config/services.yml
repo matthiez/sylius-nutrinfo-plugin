@@ -62,3 +62,4 @@ services:
       - '@@EcolosSyliusNutrinfoPlugin/Admin/_javascripts.html.twig'
     tags:
       - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.product_variant.update.javascripts, method: onBlockEvent }
+      - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.product.update.javascripts, method: onBlockEvent }
