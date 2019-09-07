@@ -30,6 +30,12 @@ class NutrinfoActive implements ResourceInterface, TranslatableInterface
      */
     protected $id;
 
+    /**
+     * @Column(type="string")
+     * @var null|string
+     */
+    protected $unit;
+
     public function __construct()
     {
         $this->initializeTranslationsCollection();
@@ -56,6 +62,18 @@ class NutrinfoActive implements ResourceInterface, TranslatableInterface
         $translation = $this->getTranslation();
 
         return $translation->getName();
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(string $unit): self
+    {
+        $this->unit = $unit;
+
+        return $this;
     }
 
     /**

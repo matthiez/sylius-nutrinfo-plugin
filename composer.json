@@ -46,16 +46,10 @@
     "symfony/web-profiler-bundle": "^3.4|^4.3",
     "symfony/web-server-bundle": "^3.4|^4.3"
   },
-  "conflict": {
-    "symfony/symfony": "4.1.8",
-    "symfony/browser-kit": "4.1.8",
-    "symfony/dependency-injection": "4.1.8",
-    "symfony/dom-crawler": "4.1.8",
-    "symfony/routing": "4.1.8"
-  },
   "autoload": {
     "psr-4": {
-      "Ecolos\\SyliusNutrinfoPlugin\\": "src/"
+      "Ecolos\\SyliusNutrinfoPlugin\\": "src/",
+      "Tests\\Ecolos\\SyliusNutrinfoPlugin\\": "tests/"
     }
   },
   "autoload-dev": {

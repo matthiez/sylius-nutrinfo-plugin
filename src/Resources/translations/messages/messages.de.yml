@@ -3,6 +3,8 @@ ecolos_sylius_nutrinfo_plugin:
     new_nutrinfo_active: 'Neuer aktiver Inhaltsstoff'
     nutrinfo_actives: 'Aktive Inhaltsstoffe'
     nutrinfo_active: 'Aktiver Inhaltsstoff'
+    edit_nutrinfo_active: "Aktiven Inhaltsstoff ändern"
+    edit_nutrinfo_actives: "Aktive Inhaltsstoffe bearbeiten"
     add_nutrinfo_active: "Aktiven Inhaltsstoff hinzufügen"
     fat: "Fett"
     saturated: "- davon gesättigte Fettsäuren"
@@ -11,3 +13,5 @@ ecolos_sylius_nutrinfo_plugin:
     salt: "Salz"
     fiber: "Ballaststoffe"
     protein: "Protein"
+    unit: "Maßeinheit"
+    kj: "kJ"

@@ -9,7 +9,7 @@ ecolos_sylius_nutrinfo_plugin_admin_nutrinfo_active:
     vars:
         all:
           templates:
-            subheader: "Aktive Inhaltsstoffe bearbeiten"
+            subheader: "ecolos_sylius_nutrinfo_plugin.ui.edit_nutrinfo_actives"
             form: "@EcolosSyliusNutrinfoPlugin/_form.html.twig"
         index:
             icon: 'file image outline'

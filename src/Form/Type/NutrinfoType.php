@@ -7,8 +7,6 @@ use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Burgov\Bundle\KeyValueFormBundle\Form\Type\KeyValueType;
-
 
 class NutrinfoType extends AbstractType
 {
@@ -31,46 +29,37 @@ class NutrinfoType extends AbstractType
             $allowedKeys[$activeIngredient->getName()] = $activeIngredient->getId();
         }
 
+        $createTypeOptions = function (string $child, bool $required = true): array {
+            return [
+                'label' => "ecolos_sylius_nutrinfo_plugin.ui." . $child,
+                "attr" => [
+                    "placeholder" => "ecolos_sylius_nutrinfo_plugin.ui." . $child
+                ],
+                "translation_domain" => "messages",
+                "required" => $required
+            ];
+        };
+
         $builder
-            ->add('kj', NumberType::class, ['label' => "kJ", "attr" => ["placeholder" => "kJ"]])
-            ->add('fats', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.fat",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.fat"],
-                "translation_domain" => "messages"])
-            ->add('saturated', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.saturated",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.saturated"],
-                "translation_domain" => "messages"])
-            ->add('carbs', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.carbs",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.carbs"],
-                "translation_domain" => "messages"])
-            ->add('sugar', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.sugar",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.sugar"],
-                "translation_domain" => "messages"])
-            ->add('salt', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.salt",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.salt"],
-                "translation_domain" => "messages"])
-            ->add('fiber', NumberType::class, [
-                "required" => false,
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.fiber",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.fiber"],
-                "translation_domain" => "messages"])
-            ->add('protein', NumberType::class, [
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui.protein",
-                "attr" => ["placeholder" => "ecolos_sylius_nutrinfo_plugin.ui.protein"],
-                "translation_domain" => "messages"])
+            ->add('kj', NumberType::class, $createTypeOptions("kj"))
+            ->add('fats', NumberType::class, $createTypeOptions("fat"))
+            ->add('saturated', NumberType::class, $createTypeOptions("saturated"))
+            ->add('carbs', NumberType::class, $createTypeOptions("carbs"))
+            ->add('sugar', NumberType::class, $createTypeOptions("sugar"))
+            ->add('salt', NumberType::class, $createTypeOptions("salt"))
+            ->add('protein', NumberType::class, $createTypeOptions("protein"))
+            ->add('fiber', NumberType::class, $createTypeOptions("fiber", false))
             ->add('active_ingredients', KeyValueType::class, [
                 'value_type' => NumberType::class,
+                "value_options" => ["html5" => true],
+                "entry_type" => "Ecolos\SyliusNutrinfoPlugin\Form\Type\KeyValueRowType",
                 'use_container_object' => true,
                 "label" => false,
                 "button_add_label" => "ecolos_sylius_nutrinfo_plugin.ui.add_nutrinfo_active",
                 "allowed_keys" => $allowedKeys,
                 "key_options" => ["label" => "ecolos_sylius_nutrinfo_plugin.ui.nutrinfo_active"],
-                "value_options" => ["label" => "mg"],
-                "translation_domain" => "messages"
+                "translation_domain" => "messages",
+                "units" => ['mg' => 'mg', "g" => "g"]
             ]);
     }
 

@@ -4,10 +4,18 @@ services:
     tags:
       - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductVariantType }
 
+  ecolos_sylius_nutrinfo_plugin.form.extension.type.product:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Extension\ProductTypeExtension
+    tags:
+      - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductType }
+
   ecolos_sylius_nutrinfo_plugin.listener.admin.menu_builder:
     class: Ecolos\SyliusNutrinfoPlugin\Menu\AdminMenuListener
     tags:
       - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+  ecolos_sylius_nutrinfo_plugin.model.nutrinfo_active_translation:
+    class: Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoActiveTranslation
 
   ecolos_sylius_nutrinfo_plugin.form.type.nutrinfo_active_translation:
     class: Ecolos\SyliusNutrinfoPlugin\Form\Type\NutrinfoActiveTranslationType
@@ -37,3 +45,20 @@ services:
     arguments:
       - "expr:service('sylius.context.locale').getLocaleCode()"
     tags: [twig.extension]
+
+  ecolos_sylius_nutrinfo_plugin.form.type.key_value_row:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Type\KeyValueRowType
+    tags:
+      - { name: form.type }
+
+  ecolos_sylius_nutrinfo_plugin.form.type.key_value:
+    class: Ecolos\SyliusNutrinfoPlugin\Form\Type\KeyValueType
+    tags:
+      - { name: form.type }
+
+  ecolos_sylius_nutrinfo_plugin.block_event_listener.admin.product_variant.update.javascripts:
+    class: Sylius\Bundle\UiBundle\Block\BlockEventListener
+    arguments:
+      - '@@EcolosSyliusNutrinfoPlugin/Admin/_javascripts.html.twig'
+    tags:
+      - { name: kernel.event_listener, event: sonata.block.event.sylius.admin.product_variant.update.javascripts, method: onBlockEvent }

@@ -11,3 +11,4 @@ vendor/
 
 /behat.yml
 /phpspec.yml
+/.phpunit.result.cache

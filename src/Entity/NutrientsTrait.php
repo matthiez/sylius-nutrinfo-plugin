@@ -5,7 +5,6 @@ namespace Ecolos\SyliusNutrinfoPlugin\Entity;
 
 use Doctrine\ORM\Mapping\Column;
 
-
 trait NutrientsTrait
 {
     /**

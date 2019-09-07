@@ -61,7 +61,12 @@ use Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoTrait;
 class ProductVariant { use NutrinfoTrait; }
 ``` 
 
-10. Add form_row to SyliusAdminBundle/ProductVariant/Tab/_details.html.twig
+10. Add to SyliusAdminBundle/ProductVariant/Tab/_details.html.twig
+```twig
+{{ form_row(form.nutrinfo) }}
+```
+
+11. Add to SyliusAdminBundle/Product/Tab/_details.html.twig
 ```twig
 {{ form_row(form.nutrinfo) }}
 ``` 
