@@ -1,32 +1,39 @@
 <script>
-    ['sylius_product_variant_nutrinfo_active_ingredients', 'sylius_product_nutrinfo_active_ingredients']
-        .forEach($container => {
-            $container = document.getElementById($container);
+    for (let $container of
+        ['sylius_product_variant_nutrinfo_active_ingredients', 'sylius_product_nutrinfo_active_ingredients']) {
+        const setDom = (id) => {
+            if (isNaN(id)) {
+                return;
+            }
 
-            const mutationCallback = (mutations) => {
-                for (const mutation of
-                    mutations) {
-                    const id = parseInt(mutation.addedNodes[1].childNodes[0].id.match(/\d+/g)[0]);
+            const selectorBase = `#${$container.id}_${id}_`;
+            const $label = $container.querySelector(`${selectorBase}value`).labels[0];
+            const $unit = $container.querySelector(`${selectorBase}unit`);
 
-                    if (isNaN(id)) {
-                        continue;
-                    }
+            $label.textContent = $unit.value;
 
-                    const selectorBase = `#${$container.id}_${id}_`;
-                    const $label = $container.querySelector(`${selectorBase}value`).labels[0];
-                    const $unit = $container.querySelector(`${selectorBase}unit`);
-
-                    $label.textContent = $unit.value;
-
-                    const onChangeUnit = () => {
-                        $label.textContent = $unit.value;
-                    };
-
-                    $unit.addEventListener('change', onChangeUnit, {passive: true});
-                }
+            const onChangeUnit = () => {
+                $label.textContent = $unit.value;
             };
 
-            $container && $container.firstElementChild && new MutationObserver(mutationCallback)
-                .observe($container.firstElementChild, {childList: true});
-        });
+            $unit.addEventListener('change', onChangeUnit, {passive: true});
+        };
+
+        const getIndexFromId = (ele) => parseInt(ele.id.match(/\d+/g)[0]);
+
+        const mutationCallback = (mutations) => mutations
+            .forEach(mutation => setDom(getIndexFromId(mutation.addedNodes[1].childNodes[0])));
+
+        $container = document.getElementById($container);
+
+        if (!$container || !$container.firstElementChild) {
+            continue;
+        }
+
+        Array.from($container.firstElementChild.querySelectorAll(`div[data-form-collection="item"] > div`))
+             .forEach(ele => setDom(getIndexFromId(ele)));
+
+        new MutationObserver(mutationCallback)
+            .observe($container.firstElementChild, {childList: true});
+    }
 </script>
