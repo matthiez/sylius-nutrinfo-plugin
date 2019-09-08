@@ -109,28 +109,6 @@ class Nutrinfo implements ResourceInterface
         return $this;
     }
 
-    public function addActiveIngredient(NutrinfoActive $activeIngredient): self
-    {
-        $filtered = array_filter($this->active_ingredients->toArray(), function (NutrinfoActive $_activeIngredient) use ($activeIngredient) {
-            return $_activeIngredient->getId() == $activeIngredient->getId();
-        });
-
-        if (0 == count($filtered)) {
-            $this->active_ingredients[] = $activeIngredient;
-        }
-
-        return $this;
-    }
-
-    public function removeActiveIngredient(NutrinfoActive $nutrinfoActive): self
-    {
-        $this->active_ingredients = array_filter($this->active_ingredients->toArray(), function (NutrinfoActive $_nutrinfoActive) use ($nutrinfoActive) {
-            return $_nutrinfoActive->getId() != $nutrinfoActive->getId();
-        });
-
-        return $this;
-    }
-
     public function removeActiveIngredients(): self
     {
         $this->active_ingredients = [];
