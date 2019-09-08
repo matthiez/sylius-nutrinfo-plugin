@@ -7,6 +7,7 @@ ecolos_sylius_nutrinfo_plugin:
     edit_nutrinfo_actives: "Aktive Inhaltsstoffe bearbeiten"
     add_nutrinfo_active: "Aktiven Inhaltsstoff hinzufügen"
     fat: "Fett"
+    fats: "Fett"
     saturated: "- davon gesättigte Fettsäuren"
     carbs: "Kohlenhydrate"
     sugar: "- davon Zucker"
@@ -15,3 +16,5 @@ ecolos_sylius_nutrinfo_plugin:
     protein: "Protein"
     unit: "Maßeinheit"
     kj: "kJ"
+    base: "Basis"
+    base_unit: "Basiseinheit"

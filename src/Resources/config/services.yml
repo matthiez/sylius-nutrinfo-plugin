@@ -6,6 +6,8 @@ services:
 
   ecolos_sylius_nutrinfo_plugin.form.extension.type.product:
     class: Ecolos\SyliusNutrinfoPlugin\Form\Extension\ProductTypeExtension
+    arguments:
+      - '@ecolos_sylius_nutrinfo_plugin.repository.nutrinfo_active'
     tags:
       - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductType }
 

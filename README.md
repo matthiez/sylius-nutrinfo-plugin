@@ -53,20 +53,30 @@
         - { resource: "@EcolosSyliusNutrinfoPlugin/Resources/config/_sylius.yml" }
     ```
 
-9. Edit src/Entity/ProductVariant.php
+9. Add traits to entities
+
+    src/Entity/ProductVariant.php
     ```php
     <?php
-    use Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoTrait;
-    class ProductVariant { use NutrinfoTrait; }
+    use Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoVariantTrait;
+    class ProductVariant { use NutrinfoVariantTrait; }
     ``` 
+    src/Entity/Product.php
+    ```php
+    <?php
+    use Ecolos\SyliusNutrinfoPlugin\Entity\NutrinfoProductTrait;
+    class Product { use NutrinfoProductTrait; }
+    ``` 
+10. Add admin form components
 
-10. Add to SyliusAdminBundle/ProductVariant/Tab/_details.html.twig
+    templates/bundles/SyliusAdminBundle/ProductVariant/Tab/_details.html.twig
     ```twig
+    {% form_theme form.nutrinfo '@EcolosSyliusNutrinfoPlugin/Admin/nutrinfo.html.twig' %}
     {{ form_row(form.nutrinfo) }}
     ```
-
-11. Add to SyliusAdminBundle/Product/Tab/_details.html.twig
+    templates/bundles/SyliusAdminBundle/Product/Tab/_details.html.twig
     ```twig
+    {% form_theme form.nutrinfo '@EcolosSyliusNutrinfoPlugin/Admin/nutrinfo.html.twig' %}
     {{ form_row(form.nutrinfo) }}
     ``` 
 

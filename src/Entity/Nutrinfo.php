@@ -16,6 +16,7 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Core\Model\Product;
 use Burgov\Bundle\KeyValueFormBundle\KeyValueContainer;
 use Traversable;
+use Sylius\Component\Core\Model\ProductVariant;
 
 /**
  * @Entity
@@ -40,14 +41,52 @@ class Nutrinfo implements ResourceInterface
     protected $id;
 
     /**
-     * @OneToMany(targetEntity="App\Entity\ProductVariant", mappedBy="nutrinfo")
+     * @OneToMany(targetEntity="App\Entity\Product", mappedBy="nutrinfo")
      */
     private $products;
+
+    /**
+     * @OneToMany(targetEntity="App\Entity\ProductVariant", mappedBy="nutrinfo")
+     */
+    private $variants;
+
+    /**
+     * @Column(type="integer", nullable=true)
+     * @var integer
+     */
+    protected $base;
+
+    /**
+     * @Column(type="string", nullable=true)
+     * @var string
+     */
+    protected $base_unit;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->variants = new ArrayCollection();
         $this->active_ingredients = new ArrayCollection();
+    }
+
+    public function getBase(): ?int
+    {
+        return $this->base;
+    }
+
+    public function setBase(?int $base)
+    {
+        $this->base = $base;
+    }
+
+    public function getBaseUnit(): ?string
+    {
+        return $this->base_unit;
+    }
+
+    public function setBaseUnit(?string $baseUnit)
+    {
+        $this->base_unit = $baseUnit;
     }
 
     /**
@@ -127,6 +166,43 @@ class Nutrinfo implements ResourceInterface
     public function removeProducts(): self
     {
         $this->products = [];
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProductVariant[]
+     */
+    public function getVariants(): Collection
+    {
+        return $this->variants;
+    }
+
+    public function addVariant(ProductVariant $product): self
+    {
+        $filtered = array_filter($this->variants->toArray(), function (ProductVariant $_product) use ($product) {
+            return $_product->getId() == $product->getId();
+        });
+
+        if (0 == count($filtered)) {
+            $this->variants[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeVariant(ProductVariant $product): self
+    {
+        $this->variants = array_filter($this->variants->toArray(), function (Product $_product) use ($product) {
+            return $_product->getId() != $product->getId();
+        });
+
+        return $this;
+    }
+
+    public function removeVariants(): self
+    {
+        $this->variants = [];
 
         return $this;
     }

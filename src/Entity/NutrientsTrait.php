@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping\Column;
 trait NutrientsTrait
 {
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $carbs;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $fats;
@@ -26,31 +26,31 @@ trait NutrientsTrait
     protected $fiber;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $kj;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $protein;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $saturated;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $salt;
 
     /**
-     * @Column(type="float")
+     * @Column(type="float", nullable=true)
      * @var float|null
      */
     protected $sugar;
@@ -60,7 +60,7 @@ trait NutrientsTrait
         return $this->carbs;
     }
 
-    public function setCarbs(float $carbs): void
+    public function setCarbs(?float $carbs): void
     {
         $this->carbs = $carbs;
     }
@@ -70,7 +70,7 @@ trait NutrientsTrait
         return $this->fats;
     }
 
-    public function setFats(float $fats): void
+    public function setFats(?float $fats): void
     {
         $this->fats = $fats;
     }
@@ -90,7 +90,7 @@ trait NutrientsTrait
         return $this->kj;
     }
 
-    public function setKj(float $kj): void
+    public function setKj(?float $kj): void
     {
         $this->kj = $kj;
     }
@@ -100,7 +100,7 @@ trait NutrientsTrait
         return $this->protein;
     }
 
-    public function setProtein(float $protein): void
+    public function setProtein(?float $protein): void
     {
         $this->protein = $protein;
     }
@@ -110,7 +110,7 @@ trait NutrientsTrait
         return $this->salt;
     }
 
-    public function setSalt(float $salt): void
+    public function setSalt(?float $salt): void
     {
         $this->salt = $salt;
     }
@@ -120,7 +120,7 @@ trait NutrientsTrait
         return $this->saturated;
     }
 
-    public function setSaturated(float $saturated): void
+    public function setSaturated(?float $saturated): void
     {
         $this->saturated = $saturated;
     }
@@ -130,7 +130,7 @@ trait NutrientsTrait
         return $this->sugar;
     }
 
-    public function setSugar(float $sugar): void
+    public function setSugar(?float $sugar): void
     {
         $this->sugar = $sugar;
     }

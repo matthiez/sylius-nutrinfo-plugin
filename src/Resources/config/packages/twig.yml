@@ -1,0 +1,3 @@
+twig:
+  form_themes:
+    - '@@EcolosSyliusNutrinfoPlugin/Admin/nutrinfo.html.twig'

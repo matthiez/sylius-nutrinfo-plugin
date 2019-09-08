@@ -1,0 +1,31 @@
+{% macro render(child) %}
+    {{ form_label(child) }}
+
+    {{ form_widget(child) }}
+
+    {{ form_help(child) }}
+
+    {{ form_errors(child) }}
+{% endmacro %}
+
+{% block ecolos_sylius_nutrinfo_plugin_nutrinfo_row %}
+    {% import _self as macros %}
+
+    <div class='ui stackable grid'>
+        {% if form.base is defined %}
+            <div class='column twelve wide'>
+                {{ macros.render(form.base) }}
+            </div>
+        {% endif %}
+
+        {% if form.base_unit is defined %}
+            <div class='column four wide'>
+                {{ macros.render(form.base_unit) }}
+            </div>
+        {% endif %}
+    </div>
+
+    {% for child in form.children if not child.rendered %}
+        {{ macros.render(child) }}
+    {% endfor %}
+{% endblock %}

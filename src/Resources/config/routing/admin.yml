@@ -10,7 +10,7 @@ ecolos_sylius_nutrinfo_plugin_admin_nutrinfo_active:
         all:
           templates:
             subheader: "ecolos_sylius_nutrinfo_plugin.ui.edit_nutrinfo_actives"
-            form: "@EcolosSyliusNutrinfoPlugin/_form.html.twig"
+            form: "@EcolosSyliusNutrinfoPlugin/Admin/grid.html.twig"
         index:
             icon: 'file image outline'
   type: sylius.resource
