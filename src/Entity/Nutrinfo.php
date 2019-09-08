@@ -109,6 +109,35 @@ class Nutrinfo implements ResourceInterface
         return $this;
     }
 
+    public function addActiveIngredient(NutrinfoActive $activeIngredient): self
+    {
+        $filtered = array_filter($this->active_ingredients->toArray(), function (NutrinfoActive $_activeIngredient) use ($activeIngredient) {
+            return $_activeIngredient->getId() == $activeIngredient->getId();
+        });
+
+        if (0 == count($filtered)) {
+            $this->active_ingredients[] = $activeIngredient;
+        }
+
+        return $this;
+    }
+
+    public function removeActiveIngredient(NutrinfoActive $nutrinfoActive): self
+    {
+        $this->active_ingredients = array_filter($this->active_ingredients->toArray(), function (NutrinfoActive $_nutrinfoActive) use ($nutrinfoActive) {
+            return $_nutrinfoActive->getId() != $nutrinfoActive->getId();
+        });
+
+        return $this;
+    }
+
+    public function removeActiveIngredients(): self
+    {
+        $this->active_ingredients = [];
+
+        return $this;
+    }
+
     private function convertToArray($data)
     {
         if (is_array($data)) {
@@ -147,13 +176,6 @@ class Nutrinfo implements ResourceInterface
         return $this;
     }
 
-    public function addActiveIngredient($activeIngredient): self
-    {
-        $this->active_ingredients[] = $activeIngredient;
-
-        return $this;
-    }
-
     public function removeProduct(Product $product): self
     {
         $this->products = array_filter($this->products->toArray(), function (Product $_product) use ($product) {
@@ -178,23 +200,23 @@ class Nutrinfo implements ResourceInterface
         return $this->variants;
     }
 
-    public function addVariant(ProductVariant $product): self
+    public function addVariant(ProductVariant $variant): self
     {
-        $filtered = array_filter($this->variants->toArray(), function (ProductVariant $_product) use ($product) {
-            return $_product->getId() == $product->getId();
+        $filtered = array_filter($this->variants->toArray(), function (ProductVariant $_variant) use ($variant) {
+            return $_variant->getId() == $variant->getId();
         });
 
         if (0 == count($filtered)) {
-            $this->variants[] = $product;
+            $this->variants[] = $variant;
         }
 
         return $this;
     }
 
-    public function removeVariant(ProductVariant $product): self
+    public function removeVariant(ProductVariant $variant): self
     {
-        $this->variants = array_filter($this->variants->toArray(), function (Product $_product) use ($product) {
-            return $_product->getId() != $product->getId();
+        $this->variants = array_filter($this->variants->toArray(), function (ProductVariant $_variant) use ($variant) {
+            return $_variant->getId() != $variant->getId();
         });
 
         return $this;
