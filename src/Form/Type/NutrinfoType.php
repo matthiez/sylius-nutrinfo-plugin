@@ -95,7 +95,7 @@ class NutrinfoType extends AbstractResourceType
                 "allowed_keys" => $allowedKeys,
                 "key_options" => ["label" => false],
                 "translation_domain" => "messages",
-                "units" => ['mg' => 'mg', "g" => "g"]
+                "units" => ['mg' => 'mg', "g" => "g", "mcg" => "mcg"]
             ])
             ->addEventListener(FormEvents::PRE_SET_DATA, $this->onPreSetData());
     }
