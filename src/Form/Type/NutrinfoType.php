@@ -10,8 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 
 class NutrinfoType extends AbstractResourceType
 {
@@ -25,29 +23,6 @@ class NutrinfoType extends AbstractResourceType
         parent::__construct("Ecolos\SyliusNutrinfoPlugin\Entity\Nutrinfo", ["sylius"]);
 
         $this->activeIngredientsRepository = $activeIngredientsRepository;
-    }
-
-    private function onPreSetData()
-    {
-        return function (FormEvent $event): void {
-            $nutrinfo = null;
-
-            $data = $event->getData();
-
-            if (null === $data) {
-                $nutrinfo = new Nutrinfo();
-
-            } elseif ($data instanceof Nutrinfo) {
-                $nutrinfo = $data;
-            }
-            if (null !== $nutrinfo) {
-                if (null === $nutrinfo->getBase()) {
-                    $nutrinfo->setBase(100000);
-                }
-
-                $event->setData($nutrinfo);
-            }
-        };
     }
 
     /**
@@ -96,8 +71,7 @@ class NutrinfoType extends AbstractResourceType
                 "key_options" => ["label" => false],
                 "translation_domain" => "messages",
                 "units" => ['mg' => 'mg', "g" => "g", "mcg" => "mcg"]
-            ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, $this->onPreSetData());
+            ]);
     }
 
     public function getBlockPrefix(): string
