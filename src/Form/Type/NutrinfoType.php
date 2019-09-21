@@ -10,17 +10,16 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class NutrinfoType extends AbstractResourceType
 {
-    /** @var RepositoryInterface */
+    /** @var RepositoryInterface $activeIngredientsRepository */
     private $activeIngredientsRepository;
-
-    private const BASE_UNIT_CHOICES = ["mg" => "mg", "n" => "n", "ml" => "ml"];
 
     public function __construct(RepositoryInterface $activeIngredientsRepository)
     {
-        parent::__construct("Ecolos\SyliusNutrinfoPlugin\Entity\Nutrinfo", ["sylius"]);
+        parent::__construct("Ecolos\SyliusNutrinfoPlugin\Entity\Nutrinfo", ["ecolos_sylius_nutrinfo_plugin_nutrinfo", "sylius"]);
 
         $this->activeIngredientsRepository = $activeIngredientsRepository;
     }
@@ -30,50 +29,101 @@ class NutrinfoType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $allowedKeys = [];
+        $t = "ecolos_sylius_nutrinfo_plugin.ui.";
 
-        foreach ($this->activeIngredientsRepository->findAll() as $activeIngredient) {
-            $allowedKeys[$activeIngredient->getName()] = $activeIngredient->getId();
-        }
-
-        $createTypeOptions = function (string $child, array $merge = []): array {
+        $createTypeOptions = function (string $child, array $merge = []) use ($t): array {
             return array_merge([
-                'label' => "ecolos_sylius_nutrinfo_plugin.ui." . $child,
+                'label' => $t . $child,
                 "attr" => [
-                    "placeholder" => "ecolos_sylius_nutrinfo_plugin.ui." . $child
+                    "placeholder" => $t . $child,
                 ],
                 "translation_domain" => "messages",
-                "required" => true
+                "required" => false,
             ], $merge);
         };
 
         $builder
-            ->add('base', NumberType::class, $createTypeOptions("base", ["html5" => true]))
-            ->add('base_unit', ChoiceType::class, $createTypeOptions("base_unit", ["choices" => self::BASE_UNIT_CHOICES]))
-            ->add('kj', NumberType::class, $createTypeOptions("kj"))
-            ->add('fats', NumberType::class, $createTypeOptions("fats"))
-            ->add('kj', NumberType::class, $createTypeOptions("kj"))
-            ->add('fats', NumberType::class, $createTypeOptions("fat"))
-            ->add('saturated', NumberType::class, $createTypeOptions("saturated"))
-            ->add('carbs', NumberType::class, $createTypeOptions("carbs"))
-            ->add('sugar', NumberType::class, $createTypeOptions("sugar"))
-            ->add('salt', NumberType::class, $createTypeOptions("salt"))
-            ->add('protein', NumberType::class, $createTypeOptions("protein"))
-            ->add('fiber', NumberType::class, $createTypeOptions("fiber", ["required" => false]))
+            ->add('base', NumberType::class, $createTypeOptions("base", [
+                "html5" => true,
+                "required" => true,
+                "constraints" => [
+                    new Assert\NotNull(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('base_unit', ChoiceType::class, $createTypeOptions("base_unit", [
+                "choices" => ["mg" => "mg", "n" => "n", "ml" => "ml"],
+                "placeholder" => $t . "base_unit",
+                "constraints" => [
+                    new Assert\NotNull(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+                "required" => true,
+            ]))
+            ->add('kj', NumberType::class, $createTypeOptions("kj", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('fats', NumberType::class, $createTypeOptions("fats", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('saturated', NumberType::class, $createTypeOptions("saturated", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('carbs', NumberType::class, $createTypeOptions("carbs", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('sugar', NumberType::class, $createTypeOptions("sugar", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('salt', NumberType::class, $createTypeOptions("salt", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('protein', NumberType::class, $createTypeOptions("protein", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
+            ->add('fiber', NumberType::class, $createTypeOptions("fiber", [
+                "constraints" => [
+                    new Assert\Positive(["groups" => ["ecolos_nutrinfo", "sylius"]]),
+                ],
+            ]))
             ->add('active_ingredients', KeyValueType::class, [
-                'value_type' => NumberType::class,
-                "value_options" => ["html5" => true],
+                "allowed_keys" => (function () {
+                    $allowedKeys = [];
+
+                    foreach ($this->activeIngredientsRepository->findAll() as $activeIngredient) {
+                        $allowedKeys[$activeIngredient->getName()] = $activeIngredient->getId();
+                    }
+
+                    return $allowedKeys;
+                })(),
+                "button_add_label" => $t . "add_nutrinfo_active",
                 "entry_type" => "Ecolos\SyliusNutrinfoPlugin\Form\Type\KeyValueRowType",
-                'use_container_object' => true,
-                "label" => "ecolos_sylius_nutrinfo_plugin.ui.nutrinfo_actives",
-                "button_add_label" => "ecolos_sylius_nutrinfo_plugin.ui.add_nutrinfo_active",
-                "allowed_keys" => $allowedKeys,
                 "key_options" => ["label" => false],
+                "label" => $t . "nutrinfo_actives",
                 "translation_domain" => "messages",
-                "units" => ['mg' => 'mg', "g" => "g", "mcg" => "mcg"]
+                "units" => ['mg' => 'mg', "g" => "g", "mcg" => "mcg"],
+                'use_container_object' => true,
+                "value_options" => ["html5" => true],
+                'value_type' => NumberType::class,
             ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix(): string
     {
         return 'ecolos_sylius_nutrinfo_plugin_nutrinfo';
