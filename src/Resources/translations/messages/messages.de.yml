@@ -18,3 +18,4 @@ ecolos_sylius_nutrinfo_plugin:
     kj: "kJ"
     base: "Basis"
     base_unit: "Basiseinheit"
+    is_base_portion: "Pro Portion?"

@@ -31,7 +31,7 @@
         }
 
         Array.from($container.firstElementChild.querySelectorAll(`div[data-form-collection="item"] > div`))
-             .forEach(ele => setDom(getIndexFromId(ele)));
+            .forEach(ele => setDom(getIndexFromId(ele)));
 
         new MutationObserver(mutationCallback)
             .observe($container.firstElementChild, {childList: true});

@@ -6,6 +6,7 @@ namespace Ecolos\SyliusNutrinfoPlugin\Form\Type;
 use Ecolos\SyliusNutrinfoPlugin\Entity\Nutrinfo;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,6 +58,10 @@ class NutrinfoType extends AbstractResourceType
                 "constraints" => [
                     new Assert\NotNull(["groups" => ["ecolos_nutrinfo", "sylius"]]),
                 ],
+                "required" => true,
+            ]))
+            ->add('is_base_portion', CheckboxType::class, $createTypeOptions("is_base_portion", [
+                "label" => $t . "is_base_portion",
                 "required" => true,
             ]))
             ->add('kj', NumberType::class, $createTypeOptions("kj", [

@@ -13,14 +13,20 @@
 
     <div class='ui stackable grid'>
         {% if form.base is defined %}
-            <div class='column twelve wide'>
+            <div class='column ten wide'>
                 {{ macros.render(form.base) }}
             </div>
         {% endif %}
 
         {% if form.base_unit is defined %}
-            <div class='column four wide'>
+            <div class='column three wide'>
                 {{ macros.render(form.base_unit) }}
+            </div>
+        {% endif %}
+
+        {% if form.is_base_portion is defined %}
+            <div class='column three wide'>
+                {{ macros.render(form.is_base_portion) }}
             </div>
         {% endif %}
     </div>
