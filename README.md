@@ -1,4 +1,4 @@
-#INSTALLATION:
+# INSTALLATION:
 
 1. Add Github repository to composer.json:
     ```Add repository from Github
@@ -80,9 +80,9 @@
     {{ form_row(form.nutrinfo) }}
     ``` 
 
-#USAGE:
+# USAGE:
 Check out the product(-variant) form in the admin section.
 A form component will be rendered.
 
-#TODO:
+# TODO:
 - Add tests
