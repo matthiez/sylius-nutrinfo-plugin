@@ -59,12 +59,12 @@ class Nutrinfo implements ResourceInterface
     protected $is_base_portion;
 
     /**
-     * @OneToMany(targetEntity="App\Entity\Product", mappedBy="nutrinfo")
+     * @OneToMany(targetEntity="App\Entity\Product\Product", mappedBy="nutrinfo")
      */
     private $products;
 
     /**
-     * @OneToMany(targetEntity="App\Entity\ProductVariant", mappedBy="nutrinfo")
+     * @OneToMany(targetEntity="App\Entity\Product\ProductVariant", mappedBy="nutrinfo")
      */
     private $variants;
 
